@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <title>Photo Message</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <!-- Web App Manifest -->
+  <link rel="manifest" href="manifest.json">
+
+  <!-- Safari -->
+  <meta name="mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="msapplication-starturl" content="/">
+
+  <link rel="apple-touch-startup-image" href="/icons/launch.png">
+  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/icons/apple-touch-icon-57x57.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/icons/apple-touch-icon-114x114.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/icons/apple-touch-icon-72x72.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/icons/apple-touch-icon-144x144.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/icons/apple-touch-icon-60x60.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/icons/apple-touch-icon-120x120.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/icons/apple-touch-icon-76x76.png" />
+  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/icons/apple-touch-icon-152x152.png" />
+  <link rel="icon" type="image/png" href="/icons/favicon-196x196.png" sizes="196x196" />
+  <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />
+  <link rel="icon" type="image/png" href="/icons/favicon-32x32.png" sizes="32x32" />
+  <link rel="icon" type="image/png" href="/icons/favicon-16x16.png" sizes="16x16" />
+  <link rel="icon" type="image/png" href="/icons/favicon-128.png" sizes="128x128" />
+  <meta name="application-name" content="Poto Message"/>
+  <meta name="msapplication-TileColor" content="#19a2b8" />
+  <meta name="msapplication-TileImage" content="/icons/mstile-144x144.png" />
+  <meta name="msapplication-square70x70logo" content="/icons/mstile-70x70.png" />
+  <meta name="msapplication-square150x150logo" content="/icons/mstile-150x150.png" />
+  <meta name="msapplication-wide310x150logo" content="/icons/mstile-310x150.png" />
+  <meta name="msapplication-square310x310logo" content="/icons/mstile-310x310.png" />
+
+  
+  <link rel="stylesheet" href="/modules/bootstrap/dist/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+  <link rel="stylesheet" href="/modules/toastr/build/toastr.min.css">
+
+  <style>
+    #camera.isset {
+      color: transparent !important;
+      background-size: cover;
+    }
+    #toast-container {
+      top: 0.5rem;
+    }
+  </style>
+
+</head>
+<body class="bg-info">
+
+  <main class="p-2">
+
+    <div id="messages" class="container-fluid" style="margin-bottom:4.5rem;">
+      <div id="loader" class="text-center text-light" style="margin-top:10rem;">
+        <i class="fas fa-spinner fa-2x fa-pulse"></i>
+        <p class="pt-2">Loading Messages</p>
+      </div>
+    </div>
+  </main>
+
+  <div class="container-fluid fixed-bottom">
+    <div class="alert alert-warning incomplete fade text-center" role="alert">
+      Incomplete Message
+    </div>
+    <div id="toolbar" class="row bg-dark">
+      <div class="col p-2 d-flex">
+
+        <button id="camera" class="fas fa-camera fa-lg px-3 mr-2 text-light border-light bg-dark rounded-circle" data-toggle="modal" data-target="#viewfinder"></button>
+        <textarea  style="resize:none;" maxlength="120" placeholder="Image caption..." id="caption" class="flex-grow-1 w-100 rounded border-light align-middle pr-5"></textarea>
+        <a id="send" class="fas fa-paper-plane fa-lg position-absolute text-dark" style="right:1.5rem; bottom: 1.75rem;"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- Camera Modal -->
+  <div class="modal fade" id="viewfinder" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog fixed-bottom" role="document">
+      <div class="modal-content bg-dark">
+        <div class="modal-body p-1 text-center">
+          <video id="player" autoplay class="w-100 rounded border-bottom-0"></video>
+          <button id="shutter" class="fas fa-circle fa-3x rounded-circle bg-white text-danger p-1 my-2" type="button" data-dismiss="modal"></button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Photo Modal -->
+  <div class="modal fade" id="photoframe" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+      <div class="modal-content">
+        <div class="modal-body p-1 text-center">
+          <img class="w-100 rounded" data-dismiss="modal" src="">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- scripts -->
+  <script src="/modules/jquery/dist/jquery.min.js"></script>
+  <script src="/modules/bootstrap/dist/js/bootstrap.min.js"></script>
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/modules/toastr/build/toastr.min.js"></script>
+  <script src="/Classes/Message.js"></script>
+  <script src="/Classes/Camera.js"></script>
+  <script src="/main.js"></script>
+
+  <!-- Init App & Service Worker -->
+  <script>
+
+    // Configure toastr
+    toastr.options = {
+      "positionClass": "toast-top-full-width",
+      "preventDuplicates": true
+    }
+
+    // Check app compatibillity
+    if ( 'mediaDevices' in navigator ) _init();
+    else toastr.error( null, 'This app is not supported by your browser.', {timeOut: 30000});
+
+    // Register SW if supported
+    if ( 'serviceWorker' in navigator ) navigator.serviceWorker.register('/sw.js');
+  </script>
+
+</body>
+</html>
