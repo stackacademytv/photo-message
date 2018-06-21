@@ -6,7 +6,7 @@ generateSW({
   swDest: 'app/sw.js',
   globDirectory: "app/",
   globPatterns: [
-    "**/*.{html,json,css}",
+    "**/*.{html,css,png}",
     "main.js",
     "Classes/*.js"
   ],
@@ -19,7 +19,7 @@ generateSW({
     },
     {
       urlPattern: /^https:\/\/use\.fontawesome\.com.*/,
-      handler: 'cacheFirst',
+      handler: 'staleWhileRevalidate',
       options: {
         cacheName: 'fontawesome'
       }

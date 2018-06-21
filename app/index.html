@@ -5,38 +5,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Photo Message</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
 
   <!-- Web App Manifest -->
   <link rel="manifest" href="manifest.json">
-
-  <!-- Safari -->
+  <meta name="theme-color" content="#19A2B8"/>
   <meta name="mobile-web-app-capable" content="yes">
-  <meta name="apple-mobile-web-app-capable" content="yes">
-  <meta name="msapplication-starturl" content="/">
-
-  <link rel="apple-touch-startup-image" href="/icons/launch.png">
-  <link rel="apple-touch-icon-precomposed" sizes="57x57" href="/icons/apple-touch-icon-57x57.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="114x114" href="/icons/apple-touch-icon-114x114.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="72x72" href="/icons/apple-touch-icon-72x72.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="144x144" href="/icons/apple-touch-icon-144x144.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="60x60" href="/icons/apple-touch-icon-60x60.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="120x120" href="/icons/apple-touch-icon-120x120.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="76x76" href="/icons/apple-touch-icon-76x76.png" />
-  <link rel="apple-touch-icon-precomposed" sizes="152x152" href="/icons/apple-touch-icon-152x152.png" />
-  <link rel="icon" type="image/png" href="/icons/favicon-196x196.png" sizes="196x196" />
-  <link rel="icon" type="image/png" href="/icons/favicon-96x96.png" sizes="96x96" />
-  <link rel="icon" type="image/png" href="/icons/favicon-32x32.png" sizes="32x32" />
-  <link rel="icon" type="image/png" href="/icons/favicon-16x16.png" sizes="16x16" />
-  <link rel="icon" type="image/png" href="/icons/favicon-128.png" sizes="128x128" />
-  <meta name="application-name" content="Poto Message"/>
-  <meta name="msapplication-TileColor" content="#19a2b8" />
-  <meta name="msapplication-TileImage" content="/icons/mstile-144x144.png" />
-  <meta name="msapplication-square70x70logo" content="/icons/mstile-70x70.png" />
-  <meta name="msapplication-square150x150logo" content="/icons/mstile-150x150.png" />
-  <meta name="msapplication-wide310x150logo" content="/icons/mstile-310x150.png" />
-  <meta name="msapplication-square310x310logo" content="/icons/mstile-310x310.png" />
-
   
+  <!-- Styles -->
   <link rel="stylesheet" href="/modules/bootstrap/dist/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
   <link rel="stylesheet" href="/modules/toastr/build/toastr.min.css">
@@ -47,8 +23,17 @@
       background-size: cover;
     }
     #toast-container {
-      top: 0.5rem;
+      top: 0;
+      left: 0;
+      width: 100%;
     }
+    #toast-container > div {
+      opacity: 1;
+      box-shadow: 0 0 2rem rgba(0,0,0,0.75);
+      border-radius: 0;
+      width: 100%;
+    }
+
   </style>
 
 </head>
@@ -73,7 +58,7 @@
 
         <button id="camera" class="fas fa-camera fa-lg px-3 mr-2 text-light border-light bg-dark rounded-circle" data-toggle="modal" data-target="#viewfinder"></button>
         <textarea  style="resize:none;" maxlength="120" placeholder="Image caption..." id="caption" class="flex-grow-1 w-100 rounded border-light align-middle pr-5"></textarea>
-        <a id="send" class="fas fa-paper-plane fa-lg position-absolute text-dark" style="right:1.5rem; bottom: 1.75rem;"></a>
+        <a id="send" class="fas fa-paper-plane fa-lg position-absolute text-dark" style="padding: 0.5rem; right:1.25rem; bottom: 1.25rem;"></a>
       </div>
     </div>
   </div>
@@ -113,15 +98,9 @@
   <!-- Init App & Service Worker -->
   <script>
 
-    // Configure toastr
-    toastr.options = {
-      "positionClass": "toast-top-full-width",
-      "preventDuplicates": true
-    }
-
     // Check app compatibillity
-    if ( 'mediaDevices' in navigator ) _init();
-    else toastr.error( null, 'This app is not supported by your browser.', {timeOut: 30000});
+    ( 'mediaDevices' in navigator )
+      ? _init() : toastr.error( null, 'This app is not supported by your browser.', {timeOut: 30000});
 
     // Register SW if supported
     if ( 'serviceWorker' in navigator ) navigator.serviceWorker.register('/sw.js');
