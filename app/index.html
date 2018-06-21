@@ -2,15 +2,14 @@
 <html>
 <head>
   <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Photo Message</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
 
-  <!-- Web App Manifest -->
+  <!-- Web App Assets -->
   <link rel="manifest" href="manifest.json">
-  <meta name="theme-color" content="#19A2B8"/>
+  <link rel="icon" href="/icons/favicon.ico" type="image/x-icon" />
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="mobile-web-app-capable" content="yes">
+  <meta name="theme-color" content="#19A2B8"/>
   
   <!-- Styles -->
   <link rel="stylesheet" href="/modules/bootstrap/dist/css/bootstrap.min.css">
@@ -86,7 +85,7 @@
     </div>
   </div>
 
-  <!-- scripts -->
+  <!-- Scripts -->
   <script src="/modules/jquery/dist/jquery.min.js"></script>
   <script src="/modules/bootstrap/dist/js/bootstrap.min.js"></script>
   <script src="/socket.io/socket.io.js"></script>
@@ -99,11 +98,23 @@
   <script>
 
     // Check app compatibillity
-    ( 'mediaDevices' in navigator )
-      ? _init() : toastr.error( null, 'This app is not supported by your browser.', {timeOut: 30000});
+    if ( 'mediaDevices' in navigator ) {
 
-    // Register SW if supported
-    if ( 'serviceWorker' in navigator ) navigator.serviceWorker.register('/sw.js');
+      // Initialise app
+      _init();
+
+      // Register SW if supported
+      if ( 'serviceWorker' in navigator ) {
+        window.addEventListener('load', () => {
+          navigator.serviceWorker.register('/sw.js');
+        });
+      }
+    
+    // Else notify the user
+    } else {
+      toastr.error( null, 'This app is not supported by your browser.', {timeOut: 30000});
+    }
+
   </script>
 
 </body>

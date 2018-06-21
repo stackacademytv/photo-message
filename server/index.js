@@ -20,6 +20,7 @@ app.use(express.static(`${__dirname}/../app`));
 // Serve node modules
 app.use('/modules', express.static(`${__dirname}/../node_modules`))
 
+// Listen for new client
 io.on('connection', (socket) => {
   
   // Send all messages to th connected client
@@ -37,8 +38,7 @@ io.on('connection', (socket) => {
     // Persist
     fs.writeFileSync(`${__dirname}/db.json`, JSON.stringify(messages));
 
-  });
-  
+  }); 
 });
 
 // Start server

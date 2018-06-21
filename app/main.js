@@ -29,8 +29,7 @@ const showPhoto = (e) => {
   $('#photoframe').modal('show');
 }
 
-
-// Check app is supported and initialise
+// Run main app logic
 const _init = () => {
 
   // Notify user of connection issues

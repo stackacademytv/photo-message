@@ -24,39 +24,39 @@ workbox.clientsClaim();
 self.__precacheManifest = [
   {
     "url": "icons/icon-128x128.png",
-    "revision": "c87a2a0eee88d29733a1f523450cba50"
+    "revision": "261f718ea9c64c88651f9196cd86a65d"
   },
   {
     "url": "icons/icon-144x144.png",
-    "revision": "3db1a80191f3be743bca3f11fea93967"
+    "revision": "37a2516608d76f42be3818058a3fc192"
   },
   {
     "url": "icons/icon-152x152.png",
-    "revision": "e61db433b6a36eed4a0dffdfcf344911"
+    "revision": "42e3735685450f2dd5065169f8247b77"
   },
   {
     "url": "icons/icon-192x192.png",
-    "revision": "d63daf7b4f6431a3238b28d1bdcac5fd"
+    "revision": "3bb8cde12b592f0c32f31f2d9f5c876f"
   },
   {
     "url": "icons/icon-384x384.png",
-    "revision": "ba9f8ce8d2f168f9eee7065c94868056"
+    "revision": "92849bc0e4db5935575fdc516e66301e"
   },
   {
     "url": "icons/icon-512x512.png",
-    "revision": "c47592e08c3390754dbbefaece1278d0"
+    "revision": "31cc80d5e43f45636a4d2616834c4cc3"
   },
   {
     "url": "icons/icon-72x72.png",
-    "revision": "3178e477795a347ec429e93d75bdefac"
+    "revision": "562778c62561a2a1d38d808c46afb85f"
   },
   {
     "url": "icons/icon-96x96.png",
-    "revision": "64d17e78d94b352e896cf86bfbafc6cb"
+    "revision": "889460d4e230bc27f81b00e171564d56"
   },
   {
     "url": "index.html",
-    "revision": "89dd10963ee927744a5f7ab68e464439"
+    "revision": "59b7779fa8e224279411a0d6c5b13e5e"
   },
   {
     "url": "style.css",
@@ -64,7 +64,7 @@ self.__precacheManifest = [
   },
   {
     "url": "main.js",
-    "revision": "d0c9ed7c950ed4e66f7e1d9b80267449"
+    "revision": "35a4d0b0381bed9ea9fb9ad4d07fffca"
   },
   {
     "url": "Classes/Camera.js",
