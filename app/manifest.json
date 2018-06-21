@@ -2,7 +2,7 @@
   "name": "Photo Message",
   "short_name": "PhotoMsg",
   "theme_color": "#19a2b8",
-  "background_color": "#343a40",
+  "background_color": "#19a2b8",
   "display": "standalone",
   "orientation": "portrait",
   "Scope": "/",
